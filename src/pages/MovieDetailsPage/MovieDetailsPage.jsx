@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { getMovieById } from '../../movies-api';
+import { ColorRing } from 'react-loader-spinner';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -56,7 +57,21 @@ export default function MovieDetailsPage() {
         <NavLink to="reviews">Reviews</NavLink>
       </nav>
 
-      <Outlet />
+      <Suspense
+        fullback={
+          <ColorRing
+            visible={true}
+            height="80"
+            width="80"
+            ariaLabel="color-ring-loading"
+            wrapperStyle={{}}
+            wrapperClass="color-ring-wrapper"
+            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+          />
+        }
+      >
+        <Outlet />
+      </Suspense>
     </>
   );
 }
