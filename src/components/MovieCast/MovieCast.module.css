@@ -1,0 +1,30 @@
+.container {
+  padding: 40px 0;
+}
+
+.list {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid darkgray;
+  border-radius: 3px;
+}
+
+.image {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.text {
+  text-align: center;
+  font-size: 16px;
+}

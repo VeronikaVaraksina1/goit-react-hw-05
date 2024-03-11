@@ -1,22 +1,33 @@
+import css from './MovieDetailsPage.module.css';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import Loader from '../../components/Loader/Loader';
+import fetchData from '../../movies-api';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { getMovieById } from '../../movies-api';
-import { ColorRing } from 'react-loader-spinner';
+import toast, { Toaster } from 'react-hot-toast';
+import { FaArrowLeftLong } from 'react-icons/fa6';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
   const location = useLocation();
   const backLinkRef = useRef(location.state ?? '/');
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getMovieById(movieId);
+        setLoading(true);
+        setError(false);
+        const data = await fetchData(`/movie/${movieId}`, movieId);
         setMovie(data);
       } catch (error) {
-        console.log(error.message);
+        toast.error('Error! Please reload the page.');
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
     getData();
@@ -26,52 +37,73 @@ export default function MovieDetailsPage() {
     'https://dl-media.viber.com/10/share/2/long/vibes/icon/image/0x0/95e0/5688fdffb84ff8bed4240bcf3ec5ac81ce591d9fa9558a3a968c630eaba195e0.jpg';
 
   return (
-    <>
-      <Link to={backLinkRef.current}>Go back</Link>
-      <img
-        src={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-            : defaultImg
-        }
-        alt={`${movie.title} poster`}
-        width={280}
-      />
-      <h1>{movie.title}</h1>
-      {movie.tagline && (
-        <p>
-          <i>{`"${movie.tagline}"`}</i>
-        </p>
-      )}
-      {movie.overview && <p>Overview: {movie.overview}</p>}
-      {movie.vote_average && (
-        <p>Average rating: {Math.floor(movie.vote_average)}</p>
+    <div className={css.wrapper}>
+      <Link className={css.link} to={backLinkRef.current}>
+        <FaArrowLeftLong /> Go back
+      </Link>
+
+      {loading && <Loader />}
+
+      {error && (
+        <ErrorMessage>
+          Something went wrong! Please reload the page 🚩
+        </ErrorMessage>
       )}
 
-      {movie.genres && movie.genres.length > 0 && (
-        <p>Genres: {movie.genres.map(genre => genre.name).join(', ')}</p>
-      )}
+      <div className={css.container}>
+        <img
+          className={css.image}
+          src={
+            movie.poster_path
+              ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+              : defaultImg
+          }
+          alt={`${movie.title} poster`}
+        />
+        <div className={css.description}>
+          <h1 className={css.text}>{movie.title}</h1>
+          {movie.tagline && (
+            <p className={css.text}>
+              <i>{`"${movie.tagline}"`}</i>
+            </p>
+          )}
+          {movie.overview && (
+            <p>
+              <span className={css.span}>Overview:</span> {movie.overview}
+            </p>
+          )}
+          {movie.vote_average && (
+            <p>
+              <span className={css.span}>Average rating:</span>{' '}
+              {Math.floor(movie.vote_average)} / 10 ⭐
+            </p>
+          )}
 
-      <nav>
-        <NavLink to="cast">Cast</NavLink>
-        <NavLink to="reviews">Reviews</NavLink>
-      </nav>
+          {movie.genres && movie.genres.length > 0 && (
+            <p>
+              <span className={css.span}>Genres:</span>{' '}
+              {movie.genres.map(genre => genre.name).join(', ')}
+            </p>
+          )}
 
-      <Suspense
-        fullback={
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="color-ring-loading"
-            wrapperStyle={{}}
-            wrapperClass="color-ring-wrapper"
-            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-          />
-        }
-      >
+          {!loading && (
+            <nav className={css.sabpages}>
+              <NavLink className={css.navLink} to="cast">
+                Cast
+              </NavLink>
+              <NavLink className={css.navLink} to="reviews">
+                Reviews
+              </NavLink>
+            </nav>
+          )}
+        </div>
+      </div>
+
+      <Suspense fullback={<Loader />}>
         <Outlet />
       </Suspense>
-    </>
+
+      <Toaster />
+    </div>
   );
 }

@@ -1,22 +1,29 @@
+import css from './MovieReviews.module.css';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import Loader from '../Loader/Loader';
+import fetchData from '../../movies-api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getReviewCast } from '../../movies-api';
 
 export default function MovieCast() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    if (!movieId) {
-      return;
-    }
+    if (!movieId) return;
+
     const getData = async () => {
       try {
-        const data = await getReviewCast(movieId);
-        console.log(data.results);
+        setLoading(true);
+        setError(false);
+        const data = await fetchData(`/movie/${movieId}/reviews`, movieId);
         setReviews(data.results);
       } catch (error) {
-        console.log(error.message);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
     getData();
@@ -27,27 +34,49 @@ export default function MovieCast() {
 
   return (
     <>
-      <ul>
-        {reviews.map(author => (
-          <li key={author.id}>
-            <img
-              src={
-                author.author_details.avatar_path
-                  ? `https://image.tmdb.org/t/p/w500${author.author_details.avatar_path}`
-                  : defaultImg
-              }
-              width={250}
-              alt={`${author.author_details.username} avatar`}
-            />
-            <p>{author.author_details.name}</p>
-            <p>
-              <i>{author.author_details.username}</i>
-            </p>
-            <p>{author.author_details.rating}</p>
-            <p>{author.content}</p>
-          </li>
-        ))}
-      </ul>
+      {loading && <Loader />}
+
+      {error && (
+        <ErrorMessage>
+          Something went wrong! Please reload the page 🚩
+        </ErrorMessage>
+      )}
+
+      {!loading && (
+        <ul>
+          {reviews.map(
+            ({
+              id,
+              content,
+              author_details: { name, username, rating, avatar_path },
+            }) => (
+              <li className={css.item} key={id}>
+                <img
+                  className={css.image}
+                  src={
+                    avatar_path
+                      ? `https://image.tmdb.org/t/p/w500${avatar_path}`
+                      : defaultImg
+                  }
+                  alt={`${username} avatar`}
+                />
+                <div className={css.description}>
+                  <div className={css.nameWrapper}>
+                    <p>
+                      <b>{username}</b>
+                    </p>
+                    <p className={css.name}>
+                      <i>{name}</i>
+                    </p>
+                  </div>
+                  <p>{rating} / 10 ⭐</p>
+                  <p className={css.comment}>{content}</p>
+                </div>
+              </li>
+            )
+          )}
+        </ul>
+      )}
     </>
   );
 }

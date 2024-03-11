@@ -1,24 +1,44 @@
-import { useEffect, useState } from 'react';
+import fetchData from '../../movies-api';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import Loader from '../../components/Loader/Loader';
 import MovieList from '../../components/MovieList/MovieList';
-import { getPopularMovies } from '../../movies-api';
+import { useEffect, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function HomePage() {
   const [movies, setMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await getPopularMovies();
+        setLoading(true);
+        setError(false);
+        const data = await fetchData('/trending/movie/day');
         setMovies(data.results);
       } catch (error) {
-        console.log(error.message);
+        toast.error('Error! Please reload the page.');
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
     getData();
   }, []);
+
   return (
     <>
+      {loading && <Loader />}
+
+      {error && (
+        <ErrorMessage>
+          Something went wrong! Please reload the page 🚩
+        </ErrorMessage>
+      )}
+
       <MovieList movies={movies} />
+      <Toaster />
     </>
   );
 }

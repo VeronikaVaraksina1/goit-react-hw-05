@@ -1,4 +1,3 @@
-import toast, { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'react-router-dom';
 
 export default function SearchBar() {
@@ -6,19 +5,13 @@ export default function SearchBar() {
   const queryFilter = params.get('query') ?? '';
 
   const changeMovieFilter = newFilter => {
-    params.set('query', newFilter);
+    params.set('query', newFilter.trim());
     setParams(params);
   };
 
   const hundleSubmit = e => {
     e.preventDefault();
     const form = e.target;
-
-    if (form.elements.search.value.trim() === '') {
-      return toast.error('You need to enter text to find pictures 🔍');
-    }
-
-    setParams({ query: form.elements.search.value });
 
     form.reset();
   };
@@ -33,8 +26,6 @@ export default function SearchBar() {
           onChange={e => changeMovieFilter(e.target.value)}
         />
       </form>
-
-      <Toaster />
     </>
   );
 }
