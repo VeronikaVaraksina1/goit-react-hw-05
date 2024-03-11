@@ -26,3 +26,36 @@ export const getMovieById = async movieId => {
 
   return response.data;
 };
+
+export const getPopularMovies = async () => {
+  const response = await axios.get('/trending/movie/day', {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOWY1NzY2MTg5MTg0ZDAyMTc4ZDQ1YTA4YTY0MjdjOSIsInN1YiI6IjY1ZWRmN2M3YTliOWE0MDE2NGQ1OGU3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fGU9I9jYSggrc10jKyE1rX9L6Klj1YuobKvmS5ya-o8',
+    },
+  });
+
+  return response.data;
+};
+
+export const getMovieCast = async movieId => {
+  const response = await axios.get(`/movie/${movieId}/credits`, {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOWY1NzY2MTg5MTg0ZDAyMTc4ZDQ1YTA4YTY0MjdjOSIsInN1YiI6IjY1ZWRmN2M3YTliOWE0MDE2NGQ1OGU3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fGU9I9jYSggrc10jKyE1rX9L6Klj1YuobKvmS5ya-o8',
+    },
+  });
+
+  return response.data;
+};
+
+export const getReviewCast = async movieId => {
+  const response = await axios.get(`/movie/${movieId}/reviews`, {
+    headers: {
+      Authorization:
+        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhOWY1NzY2MTg5MTg0ZDAyMTc4ZDQ1YTA4YTY0MjdjOSIsInN1YiI6IjY1ZWRmN2M3YTliOWE0MDE2NGQ1OGU3MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.fGU9I9jYSggrc10jKyE1rX9L6Klj1YuobKvmS5ya-o8',
+    },
+  });
+
+  return response.data;
+};
