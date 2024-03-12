@@ -1,4 +1,25 @@
+.header {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  padding: 15px;
+  background-color: #2e2e2ed7;
+}
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
 .link {
+  padding: 8px 16px;
+  border-radius: 15px;
+  background-color: rgb(63, 62, 62);
   font-size: 24px;
-  color: #8cdefa;
+  color: #71bcd5;
 }

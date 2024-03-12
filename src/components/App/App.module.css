@@ -1,4 +1,6 @@
 .container {
   position: relative;
-  padding: 20px 200px;
+  padding: 0px 200px;
+  padding-top: 80px;
+  padding-bottom: 40px;
 }

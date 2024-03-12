@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 
 export default function Navigation() {
   return (
-    <header>
-      <nav>
+    <header className={css.header}>
+      <nav className={css.nav}>
         <NavLink className={css.link} to="/">
           Home
         </NavLink>
