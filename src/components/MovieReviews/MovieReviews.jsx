@@ -5,7 +5,7 @@ import fetchData from '../../movies-api';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export default function MovieCast() {
+export default function MovieReviews() {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
