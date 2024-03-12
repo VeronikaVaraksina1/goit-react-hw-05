@@ -81,14 +81,14 @@ export default function MovieDetailsPage() {
             </p>
           )}
 
-          {movie.vote_average < 0 && (
+          {movie.vote_average > 0 && (
             <p>
               <span className={css.span}>Average rating:</span>{' '}
               {Math.floor(movie.vote_average)} / 10 ⭐
             </p>
           )}
 
-          {movie.vote_count < 0 && (
+          {movie.vote_count > 0 && (
             <p>
               <span className={css.span}>Vote count:</span>{' '}
               {Math.floor(movie.vote_count)}
