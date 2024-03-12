@@ -48,6 +48,13 @@
   font-size: 16px;
 }
 
+.reviews {
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 20px;
+}
+
 @media screen and (max-width: 1023px) {
   .description {
     width: 588px;
