@@ -43,7 +43,7 @@
 
 @media screen and (max-width: 1279px) {
   .list {
-    padding-top: 100px;
+    padding-top: 30px;
     row-gap: 70px;
     column-gap: 50px;
   }

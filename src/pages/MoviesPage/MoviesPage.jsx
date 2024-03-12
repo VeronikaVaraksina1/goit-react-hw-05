@@ -22,6 +22,7 @@ export default function MoviesPage() {
       try {
         setLoading(true);
         setError(false);
+        setMovies([]);
         const data = await fetchData('/search/movie', queryFilter);
 
         if (data.results.length === 0 && queryFilter !== '') {

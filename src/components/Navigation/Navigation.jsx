@@ -26,5 +26,3 @@ export default function Navigation() {
     </header>
   );
 }
-
-// ({ isActive }) => {return clsx(css.link, isActive && css.isActive)}

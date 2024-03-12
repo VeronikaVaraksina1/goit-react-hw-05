@@ -62,14 +62,18 @@ export default function MovieCast() {
                 />
                 <div className={css.description}>
                   <div className={css.nameWrapper}>
-                    <p>
-                      <b>{username}</b>
-                    </p>
-                    <p className={css.name}>
-                      <i>{name}</i>
-                    </p>
+                    {username && (
+                      <p>
+                        <b>{username}</b>
+                      </p>
+                    )}
+                    {name && (
+                      <p className={css.name}>
+                        <i>{name}</i>
+                      </p>
+                    )}
                   </div>
-                  <p>{rating} / 10 ⭐</p>
+                  {rating && <p>{rating} / 10 ⭐</p>}
                   <p className={css.comment}>{content}</p>
                 </div>
               </li>

@@ -7,6 +7,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import { FaArrowLeftLong } from 'react-icons/fa6';
+import clsx from 'clsx';
 
 export default function MovieDetailsPage() {
   const { movieId } = useParams();
@@ -72,12 +73,6 @@ export default function MovieDetailsPage() {
               <span className={css.span}>Overview:</span> {movie.overview}
             </p>
           )}
-          {movie.vote_average && (
-            <p>
-              <span className={css.span}>Average rating:</span>{' '}
-              {Math.floor(movie.vote_average)} / 10 ⭐
-            </p>
-          )}
 
           {movie.genres && movie.genres.length > 0 && (
             <p>
@@ -86,12 +81,43 @@ export default function MovieDetailsPage() {
             </p>
           )}
 
+          {movie.vote_average < 0 && (
+            <p>
+              <span className={css.span}>Average rating:</span>{' '}
+              {Math.floor(movie.vote_average)} / 10 ⭐
+            </p>
+          )}
+
+          {movie.vote_count < 0 && (
+            <p>
+              <span className={css.span}>Vote count:</span>{' '}
+              {Math.floor(movie.vote_count)}
+            </p>
+          )}
+
+          {movie.release_date && (
+            <p>
+              <span className={css.span}>Release date:</span>{' '}
+              {movie.release_date}
+            </p>
+          )}
+
           {!loading && (
             <nav className={css.sabpages}>
-              <NavLink className={css.navLink} to="cast">
+              <NavLink
+                className={({ isActive }) => {
+                  return clsx(css.navLink, isActive && css.isActive);
+                }}
+                to="cast"
+              >
                 Cast
               </NavLink>
-              <NavLink className={css.navLink} to="reviews">
+              <NavLink
+                className={({ isActive }) => {
+                  return clsx(css.navLink, isActive && css.isActive);
+                }}
+                to="reviews"
+              >
                 Reviews
               </NavLink>
             </nav>

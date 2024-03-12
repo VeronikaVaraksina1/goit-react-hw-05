@@ -22,11 +22,23 @@
 
   font-size: 22px;
   color: #d5717e;
+  transition: border 250ms ease-in, background-color 250ms ease-in,
+    color 250ms ease-in;
 }
 
 .isActive {
   color: #71bcd5;
   background-color: #4f4f4f;
+}
+
+.link:hover,
+.link:focus {
+  color: #d13e52;
+}
+
+.isActive:hover,
+.isActive:focus {
+  color: #33aad2;
 }
 
 @media screen and (max-width: 767px) {
