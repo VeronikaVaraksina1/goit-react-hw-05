@@ -30,6 +30,7 @@ export default function HomePage() {
 
   return (
     <>
+      <h1 className={css.title}>Popular movies</h1>
       {loading && <Loader />}
 
       {error && (
@@ -38,7 +39,6 @@ export default function HomePage() {
         </ErrorMessage>
       )}
 
-      <h1 className={css.title}>Popular movies</h1>
       <MovieList movies={movies} />
       <Toaster />
     </>
