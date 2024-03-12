@@ -1,3 +1,4 @@
+import css from './HomePage.module.css';
 import fetchData from '../../movies-api';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import Loader from '../../components/Loader/Loader';
@@ -37,6 +38,7 @@ export default function HomePage() {
         </ErrorMessage>
       )}
 
+      <h1 className={css.title}>Popular movies</h1>
       <MovieList movies={movies} />
       <Toaster />
     </>

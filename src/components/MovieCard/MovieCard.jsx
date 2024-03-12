@@ -1,3 +1,5 @@
+import css from './MovieCard.module.css';
+
 export default function MovieCard({
   movie: { title, poster_path, vote_average },
 }) {
@@ -14,7 +16,7 @@ export default function MovieCard({
         alt={`${title} poster`}
         width={280}
       />
-      <p>{Math.floor(vote_average)}</p>
+      <p className={css.rating}>{Math.floor(vote_average)} / 10 ⭐</p>
     </>
   );
 }

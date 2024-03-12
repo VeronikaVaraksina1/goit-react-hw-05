@@ -16,7 +16,7 @@
 
 .item {
   display: flex;
-  gap: 40px;
+  gap: 24px;
 
   padding-bottom: 40px;
   border-bottom: 1px solid darkgray;
@@ -46,4 +46,26 @@
 
 .comment {
   font-size: 16px;
+}
+
+@media screen and (max-width: 1023px) {
+  .description {
+    width: 588px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .image {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .nameWrapper {
+    display: block;
+  }
+
+  .description {
+    width: 315px;
+  }
 }

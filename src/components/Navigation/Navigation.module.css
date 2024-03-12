@@ -6,7 +6,7 @@
 
   width: 100%;
   padding: 15px;
-  background-color: #2e2e2ed7;
+  background-color: #1b1b1bd5;
 }
 
 .nav {
@@ -17,9 +17,28 @@
 }
 
 .link {
-  padding: 8px 16px;
+  padding: 4px 16px;
   border-radius: 15px;
-  background-color: rgb(63, 62, 62);
-  font-size: 24px;
+
+  font-size: 22px;
+  color: #d5717e;
+}
+
+.isActive {
   color: #71bcd5;
+  background-color: #4f4f4f;
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 20px 0 20px 0;
+  }
+
+  .nav {
+    gap: 20px;
+  }
+
+  .link {
+    font-size: 18px;
+  }
 }
