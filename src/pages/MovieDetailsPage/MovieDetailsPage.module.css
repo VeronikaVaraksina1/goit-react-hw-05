@@ -90,7 +90,7 @@
   }
 
   .link {
-    top: 70px;
+    top: 82px;
     left: 34px;
   }
 
@@ -102,13 +102,17 @@
 }
 
 @media screen and (max-width: 1023px) {
+  .wrapper {
+    padding: 30px 20px;
+  }
+
   .container {
     display: block;
     padding: 0px 50px 0px;
   }
 
   .image {
-    width: 300px;
+    width: 260px;
     height: 100%;
     margin: 0 auto 20px auto;
     object-fit: contain;
@@ -116,10 +120,6 @@
 }
 
 @media screen and (max-width: 767px) {
-  .wrapper {
-    padding: 10px;
-  }
-
   .container {
     padding: 0px 20px 0px;
   }
@@ -127,7 +127,7 @@
 
 @media screen and (max-width: 424px) {
   .wrapper {
-    padding: 5px;
+    padding: 20px 10px;
   }
 
   .container {
